@@ -16,8 +16,14 @@ export default class App {
         this.assets();
     }
 
+    public listen(): void {
+        this.app.listen(this.port, () => {
+            console.log(`App listening on ${this.port}`)
+        });
+    }
+
     private connectDatabase(config: DatabaseConfig): void {
-        mongoose.connect(`mongodb://${config.host}:${config.port}/${config.name}`, { useNewUrlParser: true });
+        mongoose.connect(`mongodb://${config.host}:${config.port}/${config.name}`, { useNewUrlParser: true, useUnifiedTopology: true });
     }
 
     private middlewares(middlewares: NextHandleFunction[]): void {
@@ -37,12 +43,6 @@ export default class App {
 
     private assets(): void {
         this.app.use(express.static('public'));
-    }
-
-    public listen(): void {
-        this.app.listen(this.port, () => {
-            console.log(`App listening on ${this.port}`)
-        });
     }
 }
 

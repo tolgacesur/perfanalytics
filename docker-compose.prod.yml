@@ -3,14 +3,12 @@ services:
   app:
     container_name: perfanalytics_app
     restart: always
-    command: npm run dev
+    command: npm run start
     build: .
     ports:
       - "3000:3000"
     links:
       - mongo
-    volumes:
-      - "code:/usr/src/app"
 
   mongo:
     container_name: perfanalytics_mongo
@@ -22,9 +20,3 @@ services:
 
 volumes:
   database:
-  code:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /home/tolga/perfanalytics/
