@@ -1,9 +1,11 @@
 import express, { Application } from 'express'
+import * as http from "http";
 import { NextHandleFunction } from 'connect';
 import mongoose from 'mongoose';
 
 export default class App {
     public app: Application;
+    public server: http.Server;
     public port: number;
 
     constructor(config: { port: number; middlewares: NextHandleFunction[]; routes: Routes, database: DatabaseConfig}) {
@@ -17,9 +19,7 @@ export default class App {
     }
 
     public listen(): void {
-        this.app.listen(this.port, () => {
-            console.log(`App listening on ${this.port}`)
-        });
+        this.server = this.app.listen(this.port);
     }
 
     private connectDatabase(config: DatabaseConfig): void {
