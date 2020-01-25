@@ -23,7 +23,8 @@ const app = new App({
         name : config.database.name,
         host : config.database.host,
         port : config.database.port
-    }
+    },
+    staticFolder : 'public/dashboard'
 });
 
 app.listen();

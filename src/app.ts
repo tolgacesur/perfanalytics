@@ -2,20 +2,23 @@ import express, { Application } from 'express'
 import * as http from "http";
 import { NextHandleFunction } from 'connect';
 import mongoose from 'mongoose';
+import path from 'path';
+
+const __basedir = path.join(__dirname, '../');
 
 export default class App {
     public app: Application;
     public server: http.Server;
     public port: number;
 
-    constructor(config: { port: number; middlewares: NextHandleFunction[]; routes: Routes, database: DatabaseConfig}) {
+    constructor(config: { port: number; middlewares: NextHandleFunction[]; routes: Routes, database: DatabaseConfig, staticFolder: string}) {
         this.app = express();
         this.port = config.port;
 
         this.connectDatabase(config.database);
         this.middlewares(config.middlewares);
         this.routes(config.routes);
-        this.assets();
+        this.assets(config.staticFolder);
     }
 
     public listen(): void {
@@ -41,8 +44,8 @@ export default class App {
         }
     }
 
-    private assets(): void {
-        this.app.use(express.static('public'));
+    private assets(folder: string): void {
+        this.app.use('/', express.static(path.join(__basedir, folder)))
     }
 }
 

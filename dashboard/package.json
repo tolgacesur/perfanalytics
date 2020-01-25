@@ -17,6 +17,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "postbuild": "cp -R ./build/. ../public/dashboard",
     "test": "react-app-rewired test"
   },
   "eslintConfig": {
