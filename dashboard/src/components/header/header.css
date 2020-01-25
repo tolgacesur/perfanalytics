@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    padding: 25px;
+    background-color: #cccc;
+    margin-bottom: 20px;
+    box-shadow: rgb(189, 187, 189) 0px 5px 9px 0px;
+}
+
+.brand h2 {
+    margin: 0px;
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        justify-content: center;
+    }
+}

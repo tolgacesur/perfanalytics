@@ -12,7 +12,9 @@ const Dashboard = () => {
             <Router>
                 <Switch>
                     <Route exac path="/">
-                        <Metrics/>
+                        <div className="container">
+                            <Metrics/>
+                        </div>
                     </Route>
                 </Switch>
             </Router>
