@@ -13,7 +13,7 @@ const Dashboard = () => {
         <div>
             <Layout className="layout">
                 <Header/>
-                <Content style={{ padding: '0 50px' }}>
+                <Content style={{ padding: '10px 50px', marginTop: '85px' }}>
                     <Router>
                         <Switch>
                             <Route exac path="/">
