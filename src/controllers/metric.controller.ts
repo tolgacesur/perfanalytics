@@ -28,16 +28,26 @@ export default class MetricController {
 
     public async getMetrics(req: Request, res: Response) {
         const {token} = req.params;
+        let {start, end} = req.query;
 
         // TODO : Check if token exists
         if (!token){
             return res.status(422).json();
         }
 
+        if ((start && !end )|| (!start && end)){
+            return res.status(422).json();
+        }
+
+        // If start and end are not specified, fetch records from the last 30 minutes
+        const now = new Date();
+        start = start ? new Date(start * 1000) : now;
+        end = end ? new Date(end * 1000) : now;
+
         let allMetrics = [];
 
         try {
-            allMetrics = await Metric.find({token});
+            allMetrics = await Metric.find({token, createdAt: {$gte: start, $lte: end}});
         } catch (error) {
             console.log(error);
         }

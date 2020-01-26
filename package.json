@@ -6,7 +6,7 @@
     "dev": "nodemon",
     "start": "ts-node dist/server.js",
     "build": "tsc -p .",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "ttolgacesur@gmail.com",

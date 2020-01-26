@@ -5,7 +5,7 @@ beforeAll(async () => {
     app.listen();
 });
 
-afterEach(async () => {
+afterAll(async () => {
     app.server.close();
 });
 
@@ -20,14 +20,24 @@ it('Should save metrics to database', async done => {
         .set('Accept', 'application/json')
         .expect(200)
     done()
-
-    // tobefixed : Read database
 });
 
-
-it('Should return list of metrics', async done => {
-    await request(app.server).get('/api/metrics/test')
-        .expect(200)
-    done()
+describe('Should return list of metrics', () => {
+    it('Should return list of metrics', async done => {
+        await request(app.server).get('/api/metrics/test')
+            .expect(200)
+        done()
+    });
+    
+    it('Should return 422 status code if end exist but start is null', async done => {
+        await request(app.server).get('/api/metrics/test?end=1111')
+            .expect(422)
+        done()
+    });
+    
+    it('Should return 422 status code if start exist but end is null', async done => {
+        await request(app.server).get('/api/metrics/test?start=1111')
+            .expect(422)
+        done()
+    });
 });
-
