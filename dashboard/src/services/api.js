@@ -15,8 +15,14 @@ axios.interceptors.response.use(function (response) {
 
 export default class ApiService {
 
-    static getMetrics(token) {
-        return axios.get(`/api/metrics/${token}`).then(metrics => {
+    static getMetrics({token, start, end}) {
+        const params = {};
+        if (start && end){
+            params.start = parseInt((start.getTime() / 1000).toFixed(0));
+            params.end = parseInt((end.getTime() / 1000).toFixed(0));
+        }
+
+        return axios.get(`/api/metrics/${token}`, {params}).then(metrics => {
             return metrics.map(m => new Metric(m));
         });
     }

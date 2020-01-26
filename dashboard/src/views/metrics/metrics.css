@@ -6,3 +6,38 @@
     text-align: left;
     margin-top: 50px;
 }
+
+.info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    justify-content: space-between;
+}
+
+.info .datepicker {
+    margin-right: 90px;
+    display: flex;
+    align-items: baseline;
+}
+
+.info .token{
+    background-color: #d3d3d4;
+    padding: 3px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 5px;
+}
+
+.datepicker p {
+    margin-right: 10px;
+}
+
+.token h1 {
+    margin-bottom: 0px;
+}
+
+@media only screen and (max-width: 600px) {
+    .info .datepicker {
+        margin-right: 0;
+    }
+}

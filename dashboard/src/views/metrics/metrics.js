@@ -4,19 +4,35 @@ import { Row, Col } from 'antd';
 import './metrics.css';
 import Chart from '../../components/chart/chart';
 import Resources from '../../components/resources/resources';
+import Datepicker from '../../components/datepicker/datepicker';
 import ApiService from '../../services/api';
 
 class Metrics extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            token: 'test',
+            start: null,
+            end: null,
             data: null,
             resources: []
         };
+
+        this.onCalendarChange = this.onCalendarChange.bind(this);
     }
 
     UNSAFE_componentWillMount() {
-        ApiService.getMetrics('test').then((data) => {  
+        this.fetchMetrics();
+    }
+
+    fetchMetrics(){
+        const params = {
+            token: this.state.token,
+            start: this.state.start,
+            end: this.state.end
+        };
+
+        ApiService.getMetrics(params).then((data) => {  
             const resources = [];
 
             data.forEach(d => {
@@ -53,39 +69,55 @@ class Metrics extends Component {
             });
         });
     }
-    
+
+    onCalendarChange(start, end) {
+        this.setState({start, end}, this.fetchMetrics);
+    }
 
     render() {
         return (
-            this.state.data ? 
-            <div className="charts">
-                <Row>
-                    <Col sm={24} md={12}>
-                        <h2>TTFB</h2>
-                        <Chart data={this.state.data.ttfb} title="ttfb" color="#3E517A"/>
-                    </Col>
-                    <Col sm={24} md={12}>
-                        <h2>FCP</h2>
-                        <Chart data={this.state.data.fcp} title="fcp" color="#3E517A"/>
-                    </Col>
-                </Row>
-                <Row style={{marginTop: '35px'}}>
-                    <Col sm={24} md={12}>
-                        <h2>DOM Load</h2>
-                        <Chart data={this.state.data.dom} title="dom" color="#3E517A"/>
-                    </Col>
-                    <Col sm={24} md={12}>
-                        <h2>Window Load</h2>
-                        <Chart data={this.state.data.window} title="window" color="#3E517A"/>
-                    </Col>
-                </Row>
-                <Row>
-                    <div className="resources">
-                        <h2>Resources</h2>
-                        <Resources data={this.state.resources} />
+            <div>
+                <div className="info">
+                    <div className="token">
+                        <h1>Token: {this.state.token}</h1>
                     </div>
-                </Row>
-            </div> : null
+                    <div className="datepicker">
+                        {!this.state.start && !this.state.end ? 
+                            <p>Showing the last 30 minutes</p>
+                        : null}
+                        <Datepicker onCalendarChange={this.onCalendarChange}/>
+                    </div>
+                </div>
+                {this.state.data ?
+                <div className="charts">
+                    <Row>
+                        <Col sm={24} md={12}>
+                            <h2>TTFB</h2>
+                            <Chart data={this.state.data.ttfb} title="ttfb" color="#3E517A"/>
+                        </Col>
+                        <Col sm={24} md={12}>
+                            <h2>FCP</h2>
+                            <Chart data={this.state.data.fcp} title="fcp" color="#3E517A"/>
+                        </Col>
+                    </Row>
+                    <Row style={{marginTop: '35px'}}>
+                        <Col sm={24} md={12}>
+                            <h2>DOM Load</h2>
+                            <Chart data={this.state.data.dom} title="dom" color="#3E517A"/>
+                        </Col>
+                        <Col sm={24} md={12}>
+                            <h2>Window Load</h2>
+                            <Chart data={this.state.data.window} title="window" color="#3E517A"/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <div className="resources">
+                            <h2>Resources</h2>
+                            <Resources data={this.state.resources} />
+                        </div>
+                    </Row>
+                </div> : null}
+            </div>
         )
     };
 }
