@@ -1,6 +1,5 @@
 import React from 'react';
 import { DatePicker } from 'antd';
-import moment from 'moment';
 
 const dateFormat = 'DD/MM/YYYY HH:mm';
 const { RangePicker } = DatePicker;

@@ -22,7 +22,9 @@ const app = new App({
     database : {
         name : config.database.name,
         host : config.database.host,
-        port : config.database.port
+        port : config.database.port,
+        username : config.database.username,
+        password : config.database.password
     },
     staticFolder : 'public/dashboard'
 });

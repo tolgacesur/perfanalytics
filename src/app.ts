@@ -26,7 +26,7 @@ export default class App {
     }
 
     private connectDatabase(config: DatabaseConfig): void {
-        mongoose.connect(`mongodb://${config.host}:${config.port}/${config.name}`, { useNewUrlParser: true, useUnifiedTopology: true });
+        mongoose.connect(`mongodb://${config.username}:${config.password}@${config.host}:${config.port}/${config.name}`, { useNewUrlParser: true, useUnifiedTopology: true });
     }
 
     private middlewares(middlewares: NextHandleFunction[]): void {
@@ -56,5 +56,7 @@ interface Routes {
 interface DatabaseConfig {
     name: string,
     host : string,
-    port: string
+    port: string,
+    username: string,
+    password: string
 };

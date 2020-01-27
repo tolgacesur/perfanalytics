@@ -4,12 +4,9 @@
         "target": "es6",
         "module": "commonjs",
         "outDir": "./dist",
-        "baseUrl": "api/src",
+        "baseUrl": "src",
         "esModuleInterop": true
     },
-    "include": [
-        "src/**/*.ts"
-    ],
     "exclude": [
         "node_modules"
     ]
