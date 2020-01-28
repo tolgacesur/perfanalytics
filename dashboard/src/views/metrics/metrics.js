@@ -5,6 +5,7 @@ import './metrics.css';
 import Chart from '../../components/chart/chart';
 import Resources from '../../components/resources/resources';
 import Datepicker from '../../components/datepicker/datepicker';
+import Loader from '../../components/loader/loader';
 import ApiService from '../../services/api';
 
 class Metrics extends Component {
@@ -14,6 +15,7 @@ class Metrics extends Component {
             // TODO : these token and url should be set dynamically
             token: 'test',
             url: 'https://ospeech.org',
+            ready : false,
             start: null,
             end: null,
             data: null,
@@ -67,7 +69,8 @@ class Metrics extends Component {
                         return {time: d.createdAt, value: d.data.windowLoadEvent}
                     })
                 },
-                resources : resources
+                resources : resources,
+                ready : true
             });
         });
     }
@@ -77,6 +80,10 @@ class Metrics extends Component {
     }
 
     render() {
+        if (!this.state.ready){
+            return <Loader/>;
+        }
+
         return (
             <div>
                 <div className="info">

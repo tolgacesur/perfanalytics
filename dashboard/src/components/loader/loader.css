@@ -1,0 +1,13 @@
+.loader-container {
+    background-color: white;
+    z-index: 2;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.loader-container .lottie {
+    margin-top: 100px;
+}
