@@ -88,7 +88,7 @@ class Metrics extends Component {
                         {!this.state.start && !this.state.end ? 
                             <p>Showing the last 30 minutes</p>
                         : null}
-                        <Datepicker onCalendarChange={this.onCalendarChange}/>
+                        <Datepicker onCalendarChange={this.onCalendarChange} defaultStart="01/02/2020" defaultEnd="01/04/2020"/>
                     </div>
                 </div>
                 {this.state.data ?
