@@ -30,7 +30,8 @@ const columns = [
       dataIndex: 'transferSize',
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.transferSize - b.transferSize,
-      render: value => <strong>{value / 1000} KB</strong>
+      // octects to kB
+      render: value => <strong>{value * 0.0009766} KB</strong>
     }
   ];
 
