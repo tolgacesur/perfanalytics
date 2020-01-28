@@ -8,12 +8,7 @@ const MetricSchema = new mongoose.Schema({
         fcp: Number,
         domComplete: Number,
         windowLoadEvent: Number,
-        resources: [{
-            url: String,
-            type : String,
-            duration: String,
-            transferSize : String
-        }]
+        resources: Array
     }
 }, { timestamps: { createdAt: 'createdAt'}, versionKey: false});
 

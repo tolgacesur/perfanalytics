@@ -11,7 +11,9 @@ class Metrics extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            // TODO : these token and url should be set dynamically
             token: 'test',
+            url: 'https://ospeech.org',
             start: null,
             end: null,
             data: null,
@@ -80,6 +82,7 @@ class Metrics extends Component {
                 <div className="info">
                     <div className="token">
                         <h1>Token: {this.state.token}</h1>
+                        <h1><a href={this.state.url} target="__blank">{this.state.url}</a></h1>
                     </div>
                     <div className="datepicker">
                         {!this.state.start && !this.state.end ? 

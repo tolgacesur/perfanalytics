@@ -9,24 +9,28 @@ const columns = [
       dataIndex: 'url',
       sorter: (a, b) => a.url.length - b.url.length,
       sortDirections: ['descend'],
+      render : url => <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
     },
     {
       title: 'Type',
       dataIndex: 'type',
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.type.length - b.type.length,
+      render: value => <strong>{value}</strong>
     },
     {
       title: 'Avg Duration',
-      dataIndex: 'average',
+      dataIndex: 'duration',
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.duration - b.duration,
+      render: value => <strong>{value ? value.toFixed(2) : '-'}</strong>
     },
     {
       title: 'Transfer Size',
-      dataIndex: 'size',
+      dataIndex: 'transferSize',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => a.size - b.size,
+      sorter: (a, b) => a.transferSize - b.transferSize,
+      render: value => <strong>{value / 1000} KB</strong>
     }
   ];
 
@@ -34,7 +38,7 @@ class Resource extends Component {
     render() { 
         return (
             <div>
-                <Table columns={columns} dataSource={this.props.data}/>
+                <Table rowKey="_id" columns={columns} dataSource={this.props.data}/>
             </div>
         );
     }

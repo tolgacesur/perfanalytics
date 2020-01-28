@@ -21,6 +21,7 @@ export default class MetricController {
             await new Metric(data).save();
         } catch (error) {
             console.log(error);
+            return res.status(422).json();
         }
 
         return res.send();
@@ -41,15 +42,16 @@ export default class MetricController {
 
         // If start and end are not specified, fetch records from the last 30 minutes
         const now = new Date();
-        start = start ? new Date(start * 1000) : now;
-        end = end ? new Date(end * 1000) : now;
+        start = start ? new Date(start * 1000) : new Date(now.setMinutes(now.getMinutes() - 30));
+        end = end ? new Date(end * 1000) : new Date();
 
-        let allMetrics = [];
+        let allMetrics = [{}];
 
         try {
             allMetrics = await Metric.find({token, createdAt: {$gte: start, $lte: end}});
         } catch (error) {
             console.log(error);
+            return res.status(422).json();
         }
 
         return res.json(allMetrics);
