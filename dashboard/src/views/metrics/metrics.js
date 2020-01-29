@@ -16,7 +16,7 @@ class Metrics extends Component {
             token: 'test',
             url: 'https://ospeech.org',
             ready : false,
-            start: new Date('2020/02/01'),
+            start: new Date('2020/01/01'),
             end: new Date('2020/04/01'),
             data: null,
             resources: []

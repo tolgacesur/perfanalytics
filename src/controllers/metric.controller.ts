@@ -45,7 +45,7 @@ export default class MetricController {
         start = start ? new Date(start * 1000) : new Date(now.setMinutes(now.getMinutes() - 30));
         end = end ? new Date(end * 1000) : new Date();
 
-        let allMetrics = [{}];
+        let allMetrics = [];
 
         try {
             allMetrics = await Metric.find({token, createdAt: {$gte: start, $lte: end}});
